@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_GET["id"])) {
+if (isset($_GET["token"])) {
 
-    $item = "id";
-    $valor = $_GET["id"];
+    $item = "token";
+    $valor = $_GET["token"];
 
     $usuario = ControladorFormularios::ctrSeleccionarRegistros($item, $valor);
 }
@@ -46,7 +46,7 @@ if (isset($_GET["id"])) {
             
                 <input type="password" class="form-control" placeholder="Contraseña" id="pwd" name="actualizarPassword">
                 <input type="hidden" name="passwordActual" value="<?php echo $usuario["password"]; ?>">
-                <input type="hidden" name="idUsuario" value="<?php echo $usuario["id"]; ?>">
+                <input type="hidden" name="tokenUsuario" value="<?php echo $usuario["token"]; ?>">
 
             </div>
         </div>
@@ -70,6 +70,18 @@ if (isset($_GET["id"])) {
                         window.location = "index.php?pagina=inicio";
                     },2000);
                 </script>';
+            }
+
+            if ($actualizar == 'error') {
+
+                echo '<script>
+                if (window.history.replaceState) {
+                    window.history.replaceState( null, null, window.location.href );
+                }
+                </script>';
+
+                echo '<div class="alert alert-danger">Error al actualizar el usuario</div>';
+
             }
 
         ?>

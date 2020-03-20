@@ -2,4 +2,4 @@
 
 session_destroy();
 
-echo '<script>window.location = "index.php?pagina=ingreso";</script>';
+echo '<script>window.location = "ingreso";</script>';

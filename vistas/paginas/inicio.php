@@ -43,11 +43,11 @@ $usuarios = ControladorFormularios::ctrSeleccionarRegistros(null, null);
                     <td>
                         <div class="btn-group">
                             <div class="px-1">
-                                <a href="index.php?pagina=editar&id=<?php echo $value["id"];?>" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="index.php?pagina=editar&token=<?php echo $value["token"];?>" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
                             </div>
 
                             <form method="post">
-                                <input type="hidden" value="<?php echo $value["id"];?>" name="eliminarRegistro">
+                                <input type="hidden" value="<?php echo $value["token"];?>" name="eliminarRegistro">
                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 
                                 <?php
