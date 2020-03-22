@@ -39,12 +39,13 @@ class ModeloFormularios {
     
             return $stmt->fetchAll();
         } else {
+           
             $stmt = Conexion::conectar()->prepare("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y') AS fecha FROM $tabla WHERE $item = :$item ORDER BY id DESC");
-
+            
             $stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
 
             $stmt->execute();
-    
+
             return $stmt->fetch();
         }
 
@@ -62,14 +63,12 @@ class ModeloFormularios {
     static public function mdlActualizarRegistro($tabla, $datos) {
 
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET token=:token, nombre=:nombre, email=:email,
-        password=:password WHERE token = :old_token");
+        password=:password WHERE token = :token");
 
         $stmt->bindParam(":token", $datos["token"], PDO::PARAM_STR);
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
         $stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
-        $stmt->bindParam(":old_token", $datos["old_token"], PDO::PARAM_STR);
-        
 
         if ($stmt->execute()) {
             return "ok";

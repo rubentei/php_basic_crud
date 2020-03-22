@@ -123,9 +123,9 @@ class ControladorFormularios {
 
                 $usuario = ModeloFormularios::mdlSeleccionarRegistros($tabla, "token", $_POST["tokenUsuario"]);
     
-                $compararToken = md5($usuario["nombre"] ."+". $usuario["email"]);
+                // $compararToken = md5($usuario["nombre"] ."+". $usuario["email"]);
         
-                if ($compararToken == $_POST["tokenUsuario"]) {
+                if ($usuario["token"] == $_POST["tokenUsuario"]) {
                     if ($_POST["actualizarPassword"] != "") {
 
                         if (preg_match('/^[0-9a-zA-Z]+$/', $_POST["actualizarPassword"])) {
@@ -136,16 +136,12 @@ class ControladorFormularios {
                     } else {
                         $password = $_POST["passwordActual"];
                     }
-        
-       
-                    $nuevoToken = md5($_POST["actualizarNombre"] ."+". $_POST["actualizarEmail"]);
                     
                     $datos = array(
-                        "token" => $nuevoToken,
+                        "token" => $_POST["tokenUsuario"],
                         "nombre" => $_POST["actualizarNombre"],
                         "email" => $_POST["actualizarEmail"],
-                        "password" => $password,
-                        "old_token" => $compararToken
+                        "password" => $password,  
                     );
 
                     $respuesta = ModeloFormularios::mdlActualizarRegistro($tabla, $datos);

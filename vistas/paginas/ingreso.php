@@ -10,7 +10,7 @@
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                 </div>
 
-                <input type="email" class="form-control" placeholder="E-mail" id="email" name="ingresoEmail">
+                <input type="email" class="form-control" placeholder="E-mail" id="emailIngreso" name="ingresoEmail">
             </div>
         </div>
 

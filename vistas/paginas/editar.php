@@ -20,7 +20,7 @@ if (isset($_GET["token"])) {
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
 
-                <input type="text" class="form-control" value="<?php echo $usuario["nombre"]; ?>" placeholder="Nombre" id="nombre" name="actualizarNombre">
+                <input type="text" class="form-control" value="<?php echo $usuario["nombre"]; ?>" placeholder="Nombre" id="actualizarNombre" name="actualizarNombre">
             </div>    
         </div>
 
@@ -32,7 +32,7 @@ if (isset($_GET["token"])) {
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                 </div>
 
-                <input type="email" class="form-control" value="<?php echo $usuario["email"]; ?>" placeholder="E-mail" id="email" name="actualizarEmail">
+                <input type="email" class="form-control" value="<?php echo $usuario["email"]; ?>" placeholder="E-mail" id="actualizarEmail" name="actualizarEmail">
             </div>
         </div>
 
@@ -55,21 +55,41 @@ if (isset($_GET["token"])) {
 
             $actualizar = ControladorFormularios::ctrActualizarRegistro();
 
-            if ($actualizar == 'ok') {
+            if($actualizar == "ok"){
 
                 echo '<script>
-                if (window.history.replaceState) {
+    
+                if ( window.history.replaceState ) {
+    
                     window.history.replaceState( null, null, window.location.href );
+    
                 }
-                </script>';
 
-                echo '<div class="alert alert-success">Los datos se han actualizado correctamente</div>
-
-                <script>
-                    setTimeout(function(){
-                        window.location = "index.php?pagina=inicio";
-                    },2000);
+                var token = "'.$usuario["token"].'";
+                var datos = new FormData();
+                datos.append("validarToken", token);
+    
+                $.ajax({
+    
+                    url: "ajax/formularios.ajax.php",
+                    method: "POST",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success:function(respuesta){
+    
+                        $("#actualizarNombre").val(respuesta["nombre"]);	
+                        $("#actualizarEmail").val(respuesta["email"]);	
+                    }
+    
+                })
+    
                 </script>';
+    
+                echo '<div class="alert alert-success">El usuario ha sido actualizado</div>';
+    
             }
 
             if ($actualizar == 'error') {

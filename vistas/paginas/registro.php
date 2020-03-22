@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-group">
-            <label for="eamil">Correo electrónico:</label>
+            <label for="email">Correo electrónico:</label>
 
             <div class="input-group">
                     
